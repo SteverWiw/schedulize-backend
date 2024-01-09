@@ -1,0 +1,25 @@
+server:
+  port: 8090
+
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: false
+    generate-ddl: true
+  sql:
+    init:
+      platform: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_inventory
+    username: master
+    password: Ll04QxU9wbizyuZ8T9dD
+
+application:
+  request:
+    mappings: /app-jwt-auth
+
+spring-doc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
