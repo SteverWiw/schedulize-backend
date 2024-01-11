@@ -73,7 +73,12 @@
 			<version>0.12.3</version>
 			<scope>runtime</scope>
 		</dependency>
-	</dependencies>
+		<!--TODO: se debe validar el proyecto sin esta dependencia-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
