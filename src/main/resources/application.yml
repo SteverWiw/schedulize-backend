@@ -17,6 +17,7 @@ spring:
 application:
   request:
     mappings: /app-jwt-auth
+    origin: http://localhost:4200/
   secret:
     jwt-secret: 86113AA658B5A70D1D10F5305EAB9CE8675B2C9FACDF7D6910E87596132A94ED
 

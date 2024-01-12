@@ -22,6 +22,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Slf4j
 @Configuration
 @EnableWebSecurity
@@ -32,30 +35,31 @@ public class SecurityConfig {
 
     @Value("${application.request.mappings}")
     private String url_base;
+    @Value("${application.request.origin}")
+    private String origin;
     //TODO: se deja en comentario luego se probara esta funcionalidad sin usar la clase independiente
-   /* @Bean
+    @Bean
     CorsConfigurationSource corsConfigurationSource() {
         log.info("<--------------inicia configuracion de CORS --------------->");
         CorsConfiguration cc = new CorsConfiguration();
-        cc.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type","Cross-Origin-Resource-Policy", "Access-Control-Request-Method", "Access-Control-Request-Headers","Authorization"));
+        cc.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type","Access-Control-Request-Method", "Access-Control-Request-Headers","Authorization"));
         cc.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
         cc.setAllowedOrigins(Arrays.asList("/*"));
         cc.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT","PATCH"));
-        cc.addAllowedOrigin("http://localhost:4200/");
+        cc.addAllowedOrigin(origin);
         cc.setMaxAge(Duration.ZERO);
         cc.setAllowCredentials(Boolean.TRUE);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cc);
         return source;
-    }*/
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         log.info("<--------------inicia configuracion de SECURITY --------------->");
-        return http.cors().and().
+        return http.cors(withDefaults()).
                 csrf(csrf -> csrf.disable()).authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(url_base + "/v1/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.GET).permitAll()
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated())
                 .sessionManagement(SessionManager ->
