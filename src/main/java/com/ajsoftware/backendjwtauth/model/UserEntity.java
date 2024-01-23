@@ -1,43 +1,47 @@
 package com.ajsoftware.backendjwtauth.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="user", schema = "ajscore",uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
-public class User implements Serializable, UserDetails {
+@Table(name="user", schema = "ajscore",uniqueConstraints = {@UniqueConstraint(name = "uk_user_name",columnNames = {"username"})})
+public class UserEntity implements Serializable, UserDetails {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+
+    @Column(name = "username",nullable = false,length = 20)
     private String userName;
-    @Column(nullable = false)
+
+    @Column(name = "password",nullable = false, length = 200)
     private String password;
-    private String firstName;
-    private String lastName;
+
+    @Column(name = "status",nullable = false,columnDefinition = "CHAR(1)")
     private String status;
 
+    @Column(name = "idrole", columnDefinition = "SERIAL")
+    private Long idRole;
+
     @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @JoinColumn(name = "idrole", nullable = false,foreignKey = @ForeignKey(name = "fk_user_role"),updatable = false,insertable = false)
+    private RoleEntity role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getDescription()));
+        return Optional.ofNullable(role)
+                .map(r -> List.of(new SimpleGrantedAuthority(r.getRoleName())))
+                .orElse(Collections.emptyList());
     }
 
     @Override
@@ -62,6 +66,6 @@ public class User implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return Objects.equals(status, "S");
     }
 }

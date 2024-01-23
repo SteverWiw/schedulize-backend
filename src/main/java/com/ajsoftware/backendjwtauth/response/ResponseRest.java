@@ -9,6 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseRest<T> {
     private final ArrayList<HashMap<String,String >> metaData = new ArrayList<>();
     private List<T> objectList;
