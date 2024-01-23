@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
@@ -16,6 +17,9 @@ import java.util.*;
 @Entity
 @Table(name="user", schema = "ajscore",uniqueConstraints = {@UniqueConstraint(name = "uk_user_name",columnNames = {"username"})})
 public class UserEntity implements Serializable, UserDetails {
+    @Serial
+    private static final long serialVersionUID = 1905122041950251207L;
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,12 +34,19 @@ public class UserEntity implements Serializable, UserDetails {
     @Column(name = "status",nullable = false,columnDefinition = "CHAR(1)")
     private String status;
 
-    @Column(name = "idrole", columnDefinition = "SERIAL")
+    @Column(name = "idrole", columnDefinition = "BIGINT")
     private Long idRole;
 
+    @Column(name = "idperson", columnDefinition = "BIGINT")
+    private Long idPerson;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idrole", nullable = false,foreignKey = @ForeignKey(name = "fk_user_role"),updatable = false,insertable = false)
+    @JoinColumn(name = "idrole", referencedColumnName = "id", nullable = false,foreignKey = @ForeignKey(name = "fk_user_role"),updatable = false,insertable = false)
     private RoleEntity role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idperson", referencedColumnName = "id",/*nullable = false,*/foreignKey = @ForeignKey(name = "fk_user_person"),updatable = false,insertable = false)
+    private PersonEntity person;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

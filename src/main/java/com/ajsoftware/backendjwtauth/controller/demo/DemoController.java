@@ -1,9 +1,8 @@
 package com.ajsoftware.backendjwtauth.controller.demo;
 
+import com.ajsoftware.backendjwtauth.dto.request.RegisterRequestDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 @Slf4j
@@ -15,5 +14,10 @@ public class DemoController {
     public String welcome() {
         log.info("Entro a demo ");
         return "registrer from public endpoitn";
+    }
+
+    @PostMapping("/registrer")
+    public String registrer(@RequestBody RegisterRequestDto registerRequestDto) {
+        return "registrer from public endpoitn";// authService.register(registerRequestDto);
     }
 }

@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
     private final ResponseUtil responseUtil = new ResponseUtil();
 
     @Override
-    public ResponseEntity<ResponseRest<AuthResponse>> login(LoginRequestDto loginRequestDto) {
+    public ResponseEntity<ResponseRest<AuthResponse>>login(LoginRequestDto loginRequestDto) {
         try {
             UserEntity userDetails = userRepository.findByUserName(loginRequestDto.getUserName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 

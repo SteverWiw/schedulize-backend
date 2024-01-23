@@ -26,8 +26,5 @@ public class AuthController {
         return authService.login(loginRequestDto);
     }
 
-    @PostMapping("/registrer")
-    public ResponseEntity<ResponseRest<String>> registrer(@RequestBody RegisterRequestDto registerRequestDto) {
-        return authService.register(registerRequestDto);
-    }
+
 }
