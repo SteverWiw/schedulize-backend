@@ -33,7 +33,7 @@ public class UserEntity implements Serializable, UserDetails {
     @Column(name = "idrole", columnDefinition = "SERIAL")
     private Long idRole;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idrole", nullable = false,foreignKey = @ForeignKey(name = "fk_user_role"),updatable = false,insertable = false)
     private RoleEntity role;
 

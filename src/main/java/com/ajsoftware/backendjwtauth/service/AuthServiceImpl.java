@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
-        String messaje = "Proceso finalizado con exito";
+        String messaje = "Exito: se realizó el registro de usuario por favor, validar los datos en el e-mail.";
         return Optional.of(messaje)
                 .map(responseUtil::createResponse)
                 .orElseGet(responseUtil::handleResponseNotFound);
