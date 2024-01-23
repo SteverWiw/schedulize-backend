@@ -1,6 +1,5 @@
 package com.ajsoftware.backendjwtauth.dto.request;
 
-import com.ajsoftware.backendjwtauth.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
