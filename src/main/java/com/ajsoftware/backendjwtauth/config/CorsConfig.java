@@ -10,7 +10,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.time.Duration;
 import java.util.Arrays;
 @Slf4j
 @Configuration
@@ -23,11 +22,11 @@ public class CorsConfig {
     CorsConfigurationSource corsConfigurationSource() {
         log.info("<--------------inicia configuracion de CORS --------------->");
         CorsConfiguration cc = new CorsConfiguration();
-        cc.setAllowedHeaders(Arrays.asList("*"));
-        cc.setExposedHeaders(Arrays.asList("*"));
-        cc.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT","PATCH"));
+        cc.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
+        cc.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+        cc.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         cc.addAllowedOrigin(origin);
-        cc.setMaxAge(Duration.ZERO);
+        cc.setMaxAge(3600L);
         cc.setAllowCredentials(Boolean.TRUE);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

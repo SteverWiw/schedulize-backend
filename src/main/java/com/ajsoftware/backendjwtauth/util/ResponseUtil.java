@@ -24,18 +24,20 @@ public class ResponseUtil {
     private <T> ResponseEntity<ResponseRest<T>> createResponseInternal(List<T> objects) {
         ResponseRest<T> response = new ResponseRest<>();
         response.setObject(objects);
-        response.setMetaData("Proceso realizado con éxito", "00", String.valueOf(LocalDate.now()));
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        response.setMetaData(CustomErrorCode.SUCCESS.getMessage(), CustomErrorCode.SUCCESS.getCode(), String.valueOf(LocalDate.now()));
+        return new ResponseEntity<>(response, CustomErrorCode.SUCCESS.getHttpCode());
     }
-    public <T> ResponseEntity<ResponseRest<T>> handleResponseNotFound() {
+    public <T> ResponseEntity<ResponseRest<T>> handleErrorInternalResponse() {
         ResponseRest<T> response = new ResponseRest<>();
-        response.setMetaData("Ocurrio un error inesperado","-1", String.valueOf(LocalDate.now()));
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        response.setMetaData(CustomErrorCode.INTERNAL_SERVER_ERROR.getMessage(), CustomErrorCode.INTERNAL_SERVER_ERROR.getCode(),  String.valueOf(LocalDate.now()));
+        return new ResponseEntity<>(response, CustomErrorCode.INTERNAL_SERVER_ERROR.getHttpCode());
     }
-    public <T> ResponseEntity<ResponseRest<T>> handleResponseGeneric(String message,HttpStatus httpStatus) {
+    public <T> ResponseEntity<ResponseRest<T>> handleErrorResponseGeneric(String message, int code, HttpStatus httpStatus) {
         ResponseRest<T> response = new ResponseRest<>();
-        response.setMetaData(message, "-1", String.valueOf(LocalDate.now()));
+        response.setMetaData(message, code, String.valueOf(LocalDate.now()));
         return new ResponseEntity<>(response, httpStatus);
     }
+
+
 }
 

@@ -1,7 +1,6 @@
 package com.ajsoftware.backendjwtauth.controller.auth;
 
 import com.ajsoftware.backendjwtauth.dto.request.LoginRequestDto;
-import com.ajsoftware.backendjwtauth.dto.request.RegisterRequestDto;
 import com.ajsoftware.backendjwtauth.dto.response.AuthResponse;
 import com.ajsoftware.backendjwtauth.interfaces.AuthService;
 import com.ajsoftware.backendjwtauth.response.ResponseRest;
@@ -25,6 +24,4 @@ public class AuthController {
         log.info("Ingres a login");
         return authService.login(loginRequestDto);
     }
-
-
 }

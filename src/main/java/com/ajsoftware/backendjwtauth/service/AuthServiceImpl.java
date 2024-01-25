@@ -8,10 +8,10 @@ import com.ajsoftware.backendjwtauth.jwt.JwtService;
 import com.ajsoftware.backendjwtauth.model.UserEntity;
 import com.ajsoftware.backendjwtauth.repository.UserRepository;
 import com.ajsoftware.backendjwtauth.response.ResponseRest;
+import com.ajsoftware.backendjwtauth.util.CustomErrorCode;
 import com.ajsoftware.backendjwtauth.util.ResponseUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,16 +42,15 @@ public class AuthServiceImpl implements AuthService {
             return Optional.of(authResponse)
                     .filter(authRes -> !authRes.toString().isEmpty())
                     .map(responseUtil::createResponse)
-                    .orElseGet(responseUtil::handleResponseNotFound);
+                    .orElseGet(responseUtil::handleErrorInternalResponse);
         } catch (UsernameNotFoundException e){
-            log.info(e.toString());
-            return responseUtil.handleResponseGeneric("El usuario no se encuentra registrado", HttpStatus.UNAUTHORIZED);
+            log.info("El usuario no se encuentra registrado");
+            return responseUtil.handleErrorResponseGeneric(CustomErrorCode.USER_NOTFOUND.getMessage(), CustomErrorCode.USER_NOTFOUND.getCode(),CustomErrorCode.USER_NOTFOUND.getHttpCode());
         }catch (BadCredentialsException e){
-            log.info(e.toString());
-            return responseUtil.handleResponseGeneric("Contraseña incorrecta", HttpStatus.UNAUTHORIZED);
+            log.info("Contraseña incorrecta");
+            return responseUtil.handleErrorResponseGeneric(CustomErrorCode.PASS_INCORRECT.getMessage(), CustomErrorCode.PASS_INCORRECT.getCode(),CustomErrorCode.PASS_INCORRECT.getHttpCode());
         }catch (DisabledException e){
-            log.info(e.toString());
-            return responseUtil.handleResponseGeneric("Usuario bloqueado, comuniquese con el servicio de soporte tecnico", HttpStatus.UNAUTHORIZED);
+            return responseUtil.handleErrorResponseGeneric(CustomErrorCode.USER_BLOCKED.getMessage(),  CustomErrorCode.USER_BLOCKED.getCode(),CustomErrorCode.USER_BLOCKED.getHttpCode());
         }
     }
 
@@ -68,6 +67,6 @@ public class AuthServiceImpl implements AuthService {
         String messaje = "Exito: se realizó el registro de usuario por favor, validar los datos en el e-mail.";
         return Optional.of(messaje)
                 .map(responseUtil::createResponse)
-                .orElseGet(responseUtil::handleResponseNotFound);
+                .orElseGet(responseUtil::handleErrorInternalResponse);
     }
 }

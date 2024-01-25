@@ -17,7 +17,6 @@ import java.io.PrintWriter;
 @Component
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final ResponseUtil responseUtil;
-
     public CustomAuthenticationEntryPoint(ResponseUtil responseUtil) {
         this.responseUtil = responseUtil;
     }
@@ -25,9 +24,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        String message = "Error inesperado: Por favor, inicia sesión nuevamente.";
 
-        ResponseEntity<ResponseRest<Void>> responseEntity = responseUtil.handleResponseGeneric(message, HttpStatus.UNAUTHORIZED);
+        ResponseEntity<ResponseRest<Void>> responseEntity = responseUtil.handleErrorInternalResponse();
         PrintWriter writer = response.getWriter();
         writer.println(new ObjectMapper().writeValueAsString(responseEntity.getBody()));
     }
