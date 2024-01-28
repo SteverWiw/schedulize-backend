@@ -13,8 +13,8 @@ spring:
       platform: postgres
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/db_inventory}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:admin}
+    username: ${DB_USERNAME:ajscore}
+    password: ${DB_PASSWORD:2qUWihtKZBwh7PFTQoRf}
 
 application:
   request:

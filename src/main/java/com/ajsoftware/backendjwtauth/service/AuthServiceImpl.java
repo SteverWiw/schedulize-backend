@@ -37,12 +37,14 @@ public class AuthServiceImpl implements AuthService {
             UserEntity userDetails = userRepository.findByUserName(loginRequestDto.getUserName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getUserName(), loginRequestDto.getPassword()));
+
             AuthResponse authResponse = AuthResponse.builder().token(jwtService.getToken(userDetails)).build();
 
             return Optional.of(authResponse)
                     .filter(authRes -> !authRes.toString().isEmpty())
                     .map(responseUtil::createResponse)
                     .orElseGet(responseUtil::handleErrorInternalResponse);
+
         } catch (UsernameNotFoundException e){
             log.info("El usuario no se encuentra registrado");
             return responseUtil.handleErrorResponseGeneric(CustomErrorCode.USER_NOTFOUND.getMessage(), CustomErrorCode.USER_NOTFOUND.getCode(),CustomErrorCode.USER_NOTFOUND.getHttpCode());

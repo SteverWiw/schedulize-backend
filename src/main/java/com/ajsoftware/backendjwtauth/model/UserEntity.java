@@ -40,12 +40,12 @@ public class UserEntity implements Serializable, UserDetails {
     @Column(name = "idperson", columnDefinition = "BIGINT")
     private Long idPerson;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idrole", referencedColumnName = "id", nullable = false,foreignKey = @ForeignKey(name = "fk_user_role"),updatable = false,insertable = false)
     private RoleEntity role;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idperson", referencedColumnName = "id",/*nullable = false,*/foreignKey = @ForeignKey(name = "fk_user_person"),updatable = false,insertable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idperson", referencedColumnName = "id",nullable = false,foreignKey = @ForeignKey(name = "fk_user_person"),updatable = false,insertable = false)
     private PersonEntity person;
 
     @Override

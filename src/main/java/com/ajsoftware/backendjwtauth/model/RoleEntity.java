@@ -27,4 +27,5 @@ public class RoleEntity implements Serializable {
 
     @Column(name = "status",nullable = false,columnDefinition = "CHAR(1)")
     private String status;
+
 }
