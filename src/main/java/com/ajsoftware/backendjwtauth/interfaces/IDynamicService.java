@@ -4,7 +4,7 @@ import com.ajsoftware.backendjwtauth.dto.request.DynamicRequest;
 import com.ajsoftware.backendjwtauth.response.ResponseRest;
 import org.springframework.http.ResponseEntity;
 
-public interface DynamicService {
+public interface IDynamicService {
 
-    <T> ResponseEntity<ResponseRest<T>> getInfo(DynamicRequest dynamicRequest);
+    <T> ResponseEntity<ResponseRest<T>> dynamicRequest(DynamicRequest dynamicRequest);
 }

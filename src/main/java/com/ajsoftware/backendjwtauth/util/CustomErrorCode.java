@@ -22,7 +22,7 @@ public enum CustomErrorCode {
     UNSUPPORTED_MEDIA_TYPE(415,HttpStatus.UNSUPPORTED_MEDIA_TYPE, "El recurso de destino no admite el formato de datos."),
     // Errores del servidor (5xx)
     INTERNAL_SERVER_ERROR(50,HttpStatus.INTERNAL_SERVER_ERROR, "Error inesperado: comuniquese con el servicio de soporte tecnico."),
-
+    JSON_PARSE(51,HttpStatus.INTERNAL_SERVER_ERROR, "Error inesperado al manejar la respuesta: comuniquese con el servicio de soporte tecnico."),
 
 
     ;

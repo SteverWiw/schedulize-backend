@@ -30,7 +30,10 @@ public class ApiInfoEntity implements Serializable {
     @Column(name = "source",nullable = false,length = 200)
     private String source;
 
-    @Column(nullable = false,length = 2000)
+    @Column(name = "required",nullable = false,length = 2000)
     private String required;
+
+    @Column(name = "method",nullable = false,length = 10)
+    private String method;
 
 }
