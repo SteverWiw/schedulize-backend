@@ -1,7 +1,8 @@
 package com.ajsoftware.backendjwtauth.jwt;
 
-import com.ajsoftware.backendjwtauth.model.User;
+import com.ajsoftware.backendjwtauth.model.UserEntity;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -21,18 +22,23 @@ import java.util.function.Function;
 public class JwtService {
 
     @Value("${application.secret.jwt-secret}")
-    private String SECRET_KEY;
-    public String getToken(User user){
+    private String secretKey;
+    public String getToken(UserEntity user){
         return getToken(new HashMap<>(),user);
     }
 
-    private String getToken(Map<String,Object> extraClaims, User user) {
+
+
+    private String getToken(Map<String,Object> extraClaims, UserEntity user) {
         return Jwts
                 .builder()
                 .claims(extraClaims)
                 .claim(JwtClaim.USER_ID.name(), user.getId())
-                .claim(JwtClaim.FIRST_NAME.name(), user.getFirstName())
-                .claim(JwtClaim.LAST_NAME.name(), user.getLastName())
+                .claim(JwtClaim.FIRST_NAME.name(),user.getPerson().getFirstName())
+                .claim(JwtClaim.SECOND_NAME.name(), user.getPerson().getSecondName())
+                .claim(JwtClaim.FIRST_SURNAME.name(), user.getPerson().getFirstSurname())
+                .claim(JwtClaim.SECOND_SURNAME.name(), user.getPerson().getSecondSurname())
+                .claim(JwtClaim.EMAIL.name(), user.getPerson().getEmail())
                 .claim(JwtClaim.ROLE_ID.name(), user.getRole().getId())
                 .claim(JwtClaim.ROLE_NAME.name(), user.getRole().getDescription())
                 .subject(user.getUsername())
@@ -40,27 +46,23 @@ public class JwtService {
                 .expiration(new Date(System.currentTimeMillis() + Duration.ofDays(1).toMillis()))
                 .signWith(getKey()).compact();
     }
+
     private SecretKey getKey() {
-        byte[] keyByte = Decoders.BASE64.decode(SECRET_KEY);
+        byte[] keyByte = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyByte);
     }
 
     public String getUserNameFromToken(String token) {
+        log.info("obtener username");
         return getClaim(token,Claims::getSubject);
-
     }
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String userName = getUserNameFromToken(token);
         return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    private Claims getAllClaims(String token){
-        try {
+    private Claims getAllClaims(String token) throws ExpiredJwtException{
             return Jwts.parser().verifyWith(getKey()).build().parseSignedClaims(token).getPayload();
-        } catch (Exception e) {
-            log.error("Error parsing JWT claims", e);
-            throw new RuntimeException("Error parsing JWT claims", e);
-        }
     }
 
     public <T> T getClaim(String token, Function<Claims,T> claimsTFunction){
