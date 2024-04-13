@@ -13,8 +13,10 @@ spring:
       platform: postgres
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/db_inventory}
-    username: ${DB_USERNAME:ajscore}
+    username: ${DB_USERNAME:core}
     password: ${DB_PASSWORD:2qUWihtKZBwh7PFTQoRf}
+  hibernate:
+    ddl-auto: update
 
 application:
   request:
@@ -22,6 +24,11 @@ application:
     origin: http://localhost:4200/
   secret:
     jwt-secret: 86113AA658B5A70D1D10F5305EAB9CE8675B2C9FACDF7D6910E87596132A94ED
+  client:
+    callTimeout: ${CALL_TIMEOUT:2}
+    connectTimeout: ${CONNECT_TIMEOUT:20}
+    readTimeout: ${READ_TIMEOUT:15}
+    writeTimeout: ${WRITE_TIMEOUT:15}
 
 spring-doc:
   api-docs:
