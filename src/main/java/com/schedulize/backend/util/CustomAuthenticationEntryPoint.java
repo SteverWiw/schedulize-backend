@@ -1,7 +1,7 @@
 package com.schedulize.backend.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.schedulize.backend.application.model.response.ResponseRestDto;
+import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        ResponseEntity<ResponseRestDto<Void>> responseEntity = responseUtil.handleErrorInternalResponse();
+        ResponseEntity<ResponseRestPresenter<Void>> responseEntity = responseUtil.handleErrorInternalResponse();
         PrintWriter writer = response.getWriter();
         writer.println(new ObjectMapper().writeValueAsString(responseEntity.getBody()));
     }

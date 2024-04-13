@@ -1,4 +1,4 @@
-package com.schedulize.backend.adapters.externalapi;
+package com.schedulize.backend.adapters.infrastructure.externaladapter;
 
 import okhttp3.*;
 import org.springframework.stereotype.Service;

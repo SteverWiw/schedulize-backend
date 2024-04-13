@@ -1,4 +1,4 @@
-package com.schedulize.backend.configuration.jwt;
+package com.schedulize.backend.adapters.infrastructure.jwt;
 
 import com.schedulize.backend.domain.entities.UserEntity;
 import io.jsonwebtoken.Claims;

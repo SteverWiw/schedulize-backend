@@ -1,6 +1,5 @@
-package com.schedulize.backend.application.model.response;
+package com.schedulize.backend.adapters.userinterfaces.presenters;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseRestDto<T> {
+public class ResponseRestPresenter<T> {
     private final ArrayList<HashMap<String,String >> metaData = new ArrayList<>();
 
     private List<T> objectList;

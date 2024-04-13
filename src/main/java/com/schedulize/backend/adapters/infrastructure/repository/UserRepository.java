@@ -1,4 +1,4 @@
-package com.schedulize.backend.adapters.repository;
+package com.schedulize.backend.adapters.infrastructure.repository;
 
 import com.schedulize.backend.domain.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

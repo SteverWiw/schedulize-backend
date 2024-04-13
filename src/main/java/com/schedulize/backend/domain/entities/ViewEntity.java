@@ -1,33 +1,38 @@
 package com.schedulize.backend.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="role", schema = "core",uniqueConstraints = {@UniqueConstraint(name = "uk_role_name",columnNames = {"rolename"})})
-public class RoleEntity extends Auditable<String> implements Serializable {
+@Table(name="views", schema = "core")
+public class ViewEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1905122041950251207L;
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rolename",nullable = false,length = 20)
-    private String roleName;
+    @Column(name = "name",nullable = false,length = 50)
+    private String name;
 
-    @Column(name = "description",nullable = false,length = 20)
-    private String description;
+    @Column(name = "route",nullable = false,length = 150)
+    private String route;
+
+    @Column(name = "icon",nullable = false,length = 150)
+    private String icon;
 
     @Column(name = "status",nullable = false,columnDefinition = "CHAR(1)")
     private String status;
-
 }

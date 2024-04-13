@@ -1,15 +1,19 @@
 package com.schedulize.backend.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "person",schema = "core")
-public class PersonEntity implements Serializable {
+public class PersonEntity extends Auditable<String> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1905122041950251207L;
@@ -45,7 +49,7 @@ public class PersonEntity implements Serializable {
     @Column(name = "address")
     private String address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "documenttypeid", nullable = false,foreignKey = @ForeignKey(name = "fk_document_type"),updatable = false,insertable = false)
     private DocumentTypeEntity documentType;
 }

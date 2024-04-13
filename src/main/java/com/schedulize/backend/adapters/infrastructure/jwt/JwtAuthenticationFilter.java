@@ -1,9 +1,9 @@
-package com.schedulize.backend.configuration.jwt;
+package com.schedulize.backend.adapters.infrastructure.jwt;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.schedulize.backend.application.model.response.ResponseRestDto;
+import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import com.schedulize.backend.util.CustomErrorCode;
 import com.schedulize.backend.util.ResponseUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,7 +62,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            ResponseEntity<ResponseRestDto<Void>> responseEntity = responseUtil.handleErrorResponseGeneric(CustomErrorCode.TOKEN_EXPIRED.getMessage(),
+            ResponseEntity<ResponseRestPresenter<Void>> responseEntity = responseUtil.handleErrorResponseGeneric(CustomErrorCode.TOKEN_EXPIRED.getMessage(),
                                                                    CustomErrorCode.TOKEN_EXPIRED.getCode(),CustomErrorCode.TOKEN_EXPIRED.getHttpCode());
             PrintWriter writer = response.getWriter();
             writer.println(new ObjectMapper().writeValueAsString(responseEntity.getBody()));

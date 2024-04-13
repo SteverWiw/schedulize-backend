@@ -1,4 +1,4 @@
-package com.schedulize.backend.adapters.controller;
+package com.schedulize.backend.adapters.userinterfaces.controller;
 
 import com.schedulize.backend.application.model.request.RegisterRequestDto;
 import lombok.extern.slf4j.Slf4j;

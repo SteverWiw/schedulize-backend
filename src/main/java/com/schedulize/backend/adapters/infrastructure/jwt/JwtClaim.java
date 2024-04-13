@@ -1,4 +1,4 @@
-package com.schedulize.backend.configuration.jwt;
+package com.schedulize.backend.adapters.infrastructure.jwt;
 
 public enum JwtClaim {
     USER_ID,

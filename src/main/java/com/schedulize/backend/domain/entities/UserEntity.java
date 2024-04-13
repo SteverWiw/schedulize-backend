@@ -10,13 +10,14 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="user", schema = "core",uniqueConstraints = {@UniqueConstraint(name = "uk_user_name",columnNames = {"username"})})
-public class UserEntity implements Serializable, UserDetails {
+public class UserEntity extends Auditable<String> implements Serializable, UserDetails {
 
     @Serial
     private static final long serialVersionUID = 1905122041950251207L;

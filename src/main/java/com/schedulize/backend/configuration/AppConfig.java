@@ -1,6 +1,6 @@
 package com.schedulize.backend.configuration;
 
-import com.schedulize.backend.adapters.repository.UserRepository;
+import com.schedulize.backend.adapters.infrastructure.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

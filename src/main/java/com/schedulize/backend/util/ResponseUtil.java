@@ -1,6 +1,6 @@
 package com.schedulize.backend.util;
 
-import com.schedulize.backend.application.model.response.ResponseRestDto;
+import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,26 +14,26 @@ import java.util.List;
 @Component
 public class ResponseUtil {
 
-    public <T> ResponseEntity<ResponseRestDto<T>> createResponse(T object) {
+    public <T> ResponseEntity<ResponseRestPresenter<T>> createResponse(T object) {
         List<T> objects = Collections.singletonList(object);
         return createResponseInternal(objects);
     }
-    public <T> ResponseEntity<ResponseRestDto<T>> createResponseForAll(List<T> objects) {
+    public <T> ResponseEntity<ResponseRestPresenter<T>> createResponseForAll(List<T> objects) {
         return createResponseInternal(objects);
     }
-    private <T> ResponseEntity<ResponseRestDto<T>> createResponseInternal(List<T> objects) {
-        ResponseRestDto<T> response = new ResponseRestDto<>();
+    private <T> ResponseEntity<ResponseRestPresenter<T>> createResponseInternal(List<T> objects) {
+        ResponseRestPresenter<T> response = new ResponseRestPresenter<>();
         response.setObject(objects);
         response.setMetaData(CustomErrorCode.SUCCESS.getMessage(), CustomErrorCode.SUCCESS.getCode(), String.valueOf(LocalDate.now()));
         return new ResponseEntity<>(response, CustomErrorCode.SUCCESS.getHttpCode());
     }
-    public <T> ResponseEntity<ResponseRestDto<T>> handleErrorInternalResponse() {
-        ResponseRestDto<T> response = new ResponseRestDto<>();
+    public <T> ResponseEntity<ResponseRestPresenter<T>> handleErrorInternalResponse() {
+        ResponseRestPresenter<T> response = new ResponseRestPresenter<>();
         response.setMetaData(CustomErrorCode.INTERNAL_SERVER_ERROR.getMessage(), CustomErrorCode.INTERNAL_SERVER_ERROR.getCode(),  String.valueOf(LocalDate.now()));
         return new ResponseEntity<>(response, CustomErrorCode.INTERNAL_SERVER_ERROR.getHttpCode());
     }
-    public <T> ResponseEntity<ResponseRestDto<T>> handleErrorResponseGeneric(String message, int code, HttpStatus httpStatus) {
-        ResponseRestDto<T> response = new ResponseRestDto<>();
+    public <T> ResponseEntity<ResponseRestPresenter<T>> handleErrorResponseGeneric(String message, int code, HttpStatus httpStatus) {
+        ResponseRestPresenter<T> response = new ResponseRestPresenter<>();
         response.setMetaData(message, code, String.valueOf(LocalDate.now()));
         return new ResponseEntity<>(response, httpStatus);
     }

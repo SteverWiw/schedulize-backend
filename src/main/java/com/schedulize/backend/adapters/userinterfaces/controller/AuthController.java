@@ -1,10 +1,10 @@
-package com.schedulize.backend.adapters.controller;
+package com.schedulize.backend.adapters.userinterfaces.controller;
 
 import com.schedulize.backend.application.model.request.LoginRequestDto;
 import com.schedulize.backend.application.model.request.RegisterRequestDto;
 import com.schedulize.backend.application.model.response.AuthResponseDto;
 import com.schedulize.backend.application.usecases.AuthService;
-import com.schedulize.backend.application.model.response.ResponseRestDto;
+import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,13 +20,13 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseRestDto<AuthResponseDto>> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<ResponseRestPresenter<AuthResponseDto>> login(@RequestBody LoginRequestDto loginRequestDto) {
         log.info("Ingrese a login");
         return authService.login(loginRequestDto);
     }
 
     @PostMapping("/registrer")
-    public ResponseEntity<ResponseRestDto<String>> registrer(@RequestBody RegisterRequestDto registerRequestDto) {
+    public ResponseEntity<ResponseRestPresenter<String>> registrer(@RequestBody RegisterRequestDto registerRequestDto) {
         return  authService.register(registerRequestDto);
     }
 }

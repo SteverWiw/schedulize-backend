@@ -1,15 +1,19 @@
 package com.schedulize.backend.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "documenttype",schema = "core")
-public class DocumentTypeEntity implements Serializable {
+public class DocumentTypeEntity extends Auditable<String> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1905122041950251207L;
 

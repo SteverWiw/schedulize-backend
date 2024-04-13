@@ -4,10 +4,10 @@ import com.schedulize.backend.application.model.request.LoginRequestDto;
 import com.schedulize.backend.application.model.request.RegisterRequestDto;
 import com.schedulize.backend.application.model.response.AuthResponseDto;
 import com.schedulize.backend.application.usecases.AuthService;
-import com.schedulize.backend.configuration.jwt.JwtService;
+import com.schedulize.backend.adapters.infrastructure.jwt.JwtService;
 import com.schedulize.backend.domain.entities.UserEntity;
-import com.schedulize.backend.adapters.repository.UserRepository;
-import com.schedulize.backend.application.model.response.ResponseRestDto;
+import com.schedulize.backend.adapters.infrastructure.repository.UserRepository;
+import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import com.schedulize.backend.util.CustomErrorCode;
 import com.schedulize.backend.util.ResponseUtil;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
     private final ResponseUtil responseUtil = new ResponseUtil();
 
     @Override
-    public ResponseEntity<ResponseRestDto<AuthResponseDto>>login(LoginRequestDto loginRequestDto) {
+    public ResponseEntity<ResponseRestPresenter<AuthResponseDto>>login(LoginRequestDto loginRequestDto) {
         try {
             UserEntity userDetails = userRepository.findByUserName(loginRequestDto.getUserName()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseEntity<ResponseRestDto<String>> register(RegisterRequestDto registerRequestDto) {
+    public ResponseEntity<ResponseRestPresenter<String>> register(RegisterRequestDto registerRequestDto) {
         UserEntity user = UserEntity.builder()
                 .userName(registerRequestDto.getUserName())
                 .status(registerRequestDto.getStatus())

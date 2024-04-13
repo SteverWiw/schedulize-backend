@@ -1,6 +1,6 @@
 package com.schedulize.backend.configuration;
 
-import com.schedulize.backend.configuration.jwt.JwtAuthenticationFilter;
+import com.schedulize.backend.adapters.infrastructure.jwt.JwtAuthenticationFilter;
 import com.schedulize.backend.util.CustomAuthenticationEntryPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

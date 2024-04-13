@@ -1,11 +1,11 @@
 package com.schedulize.backend.domain.services;
 
-import com.schedulize.backend.adapters.externalapi.DynamicServiceCall;
+import com.schedulize.backend.adapters.infrastructure.externaladapter.DynamicServiceCall;
 import com.schedulize.backend.application.model.request.DynamicRequestDto;
 import com.schedulize.backend.application.usecases.IDynamicService;
 import com.schedulize.backend.domain.entities.ApiInfoEntity;
-import com.schedulize.backend.adapters.repository.ApiInfoRepository;
-import com.schedulize.backend.application.model.response.ResponseRestDto;
+import com.schedulize.backend.adapters.infrastructure.repository.ApiInfoRepository;
+import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import com.schedulize.backend.util.CustomErrorCode;
 import com.schedulize.backend.util.ResponseUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,7 +35,7 @@ public class DynamicServiceImpl implements IDynamicService {
 
 
     @Override
-    public <T> ResponseEntity<ResponseRestDto<T>> dynamicRequest(DynamicRequestDto dynamicRequestDto) {
+    public <T> ResponseEntity<ResponseRestPresenter<T>> dynamicRequest(DynamicRequestDto dynamicRequestDto) {
         Optional<ApiInfoEntity> apiInfoOptional = apiInfoRepository.findByApiNameWithApiRole(dynamicRequestDto.getApiName(), dynamicRequestDto.getRoleName());
 
         if (apiInfoOptional.isEmpty()) {
@@ -47,7 +47,7 @@ public class DynamicServiceImpl implements IDynamicService {
         return processRequest(apiInfoEntity, dynamicRequestDto.getObjectRequest().toString());
     }
 
-    private <T> ResponseEntity<ResponseRestDto<T>> processRequest(ApiInfoEntity apiInfoEntity, String objectRequest) {
+    private <T> ResponseEntity<ResponseRestPresenter<T>> processRequest(ApiInfoEntity apiInfoEntity, String objectRequest) {
         try {
             ResponseBody jsonString;
             RequestBody body;
