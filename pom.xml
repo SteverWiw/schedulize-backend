@@ -10,7 +10,7 @@
 		<!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ajsoftware</groupId>
-	<artifactId>backend-jwt-auth</artifactId>
+	<artifactId>schedulize-backend</artifactId>
 	<version>0.0.1_20240109.1</version>
 	<name>backend-jwt-auth</name>
 	<description>Auth management</description>
