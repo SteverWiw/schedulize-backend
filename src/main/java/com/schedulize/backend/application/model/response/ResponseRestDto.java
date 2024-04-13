@@ -15,7 +15,6 @@ import java.util.List;
 public class ResponseRestDto<T> {
     private final ArrayList<HashMap<String,String >> metaData = new ArrayList<>();
 
-    @JsonIgnore
     private List<T> objectList;
 
     public void setMetaData(String type,int code,String date) {
