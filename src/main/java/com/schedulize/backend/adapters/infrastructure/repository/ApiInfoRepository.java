@@ -16,6 +16,4 @@ public interface ApiInfoRepository extends JpaRepository<ApiInfoEntity,Long> {
             where upper(a.apiname) =  upper(:apiname)
             and upper(c.rolename) =  upper(:rolename)""", nativeQuery = true)
     Optional<ApiInfoEntity> findByApiNameWithApiRole(@Param("apiname") String apiName,@Param("rolename") String roleName);
-
-
 }

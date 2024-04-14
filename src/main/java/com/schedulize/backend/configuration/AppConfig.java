@@ -1,9 +1,11 @@
 package com.schedulize.backend.configuration;
 
+import com.schedulize.backend.adapters.infrastructure.audit.CustomAuditorAware;
 import com.schedulize.backend.adapters.infrastructure.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -42,5 +44,10 @@ public class AppConfig {
     @Bean
     protected UserDetailsService userDetailService() {
         return username -> userRepository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Bean
+    public AuditorAware<String> auditorAware() {
+        return new CustomAuditorAware();
     }
 }

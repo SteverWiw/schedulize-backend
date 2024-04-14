@@ -1,4 +1,4 @@
-package com.schedulize.backend.adapters.infrastructure.auditor;
+package com.schedulize.backend.adapters.infrastructure.audit;
 
 import com.schedulize.backend.util.GeneralUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +14,5 @@ public class CustomAuditorAware implements AuditorAware<String> {
         log.info("USUARIO -------- ->{}",GeneralUtils.extractUserName(username));
         return Optional.ofNullable(GeneralUtils.extractUserName(username));
     }
-
 }
 
