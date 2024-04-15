@@ -1,6 +1,5 @@
 package com.schedulize.backend.domain.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schedulize.backend.adapters.infrastructure.repository.MenuRepository;
 import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
@@ -12,9 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 
@@ -28,8 +24,6 @@ public class MenuServiceImpl implements IMenuService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     @Override
     public ResponseEntity<ResponseRestPresenter<String>> getMenu() {
-        String userData  = GeneralUtils.getAuthenticationPrincipal();
-        Long roleId = Long.parseLong(Objects.requireNonNull(GeneralUtils.extractRoleId(userData)));
 
         return Optional.ofNullable(GeneralUtils.getAuthenticationPrincipal())
                 .map(GeneralUtils::extractRoleId)

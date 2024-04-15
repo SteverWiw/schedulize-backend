@@ -2,7 +2,6 @@ package com.schedulize.backend.util;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +19,7 @@ public class ResponseUtil {
 
     public <T> ResponseEntity<ResponseRestPresenter<T>> createResponse(T object) {
         List<T> objects;
-        if (object instanceof String && GeneralUtils.isJson((String) object)) {
+        if (object instanceof String && Boolean.TRUE.equals(GeneralUtils.isJson((String) object))) {
             try {
                 objects = new ObjectMapper().readValue((String) object, new TypeReference<List<T>>() {
                 });
