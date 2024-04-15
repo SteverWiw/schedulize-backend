@@ -9,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,6 +43,15 @@ public class GeneralUtils {
         return null;
     }
 
+    public static String extractRoleId(String input) {
+        Pattern pattern = Pattern.compile("RoleEntity\\(id=([^,]*)");
+        Matcher matcher = pattern.matcher(input);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return null;
+    }
+
     public static String getAuthenticationPrincipal(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -49,4 +60,20 @@ public class GeneralUtils {
         return authentication.getPrincipal().toString();
     }
 
+    public static String convertMenuToJson(List<Map<String, Object>> menu) {
+        try {
+            return objectMapper.writeValueAsString(menu);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error al convertir el menú a JSON", e);
+        }
+    }
+
+    public static Boolean isJson(String str) {
+        try {
+            new ObjectMapper().readTree(str);
+            return true;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

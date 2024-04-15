@@ -11,7 +11,6 @@ public class CustomAuditorAware implements AuditorAware<String> {
    @Override
     public Optional<String> getCurrentAuditor() {
         String username = GeneralUtils.getAuthenticationPrincipal();
-        log.info("USUARIO -------- ->{}",GeneralUtils.extractUserName(username));
         return Optional.ofNullable(GeneralUtils.extractUserName(username));
     }
 }

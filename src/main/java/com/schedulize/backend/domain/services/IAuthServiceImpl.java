@@ -3,7 +3,7 @@ package com.schedulize.backend.domain.services;
 import com.schedulize.backend.application.model.request.LoginRequestDto;
 import com.schedulize.backend.application.model.request.RegisterRequestDto;
 import com.schedulize.backend.application.model.response.AuthResponseDto;
-import com.schedulize.backend.application.usecases.AuthService;
+import com.schedulize.backend.application.usecases.IAuthService;
 import com.schedulize.backend.adapters.infrastructure.jwt.JwtService;
 import com.schedulize.backend.domain.entities.UserEntity;
 import com.schedulize.backend.adapters.infrastructure.repository.UserRepository;
@@ -23,7 +23,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @AllArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class IAuthServiceImpl implements IAuthService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;

@@ -15,7 +15,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name="views", schema = "core")
-public class ViewEntity implements Serializable {
+public class ViewEntity extends Auditable<String> implements Serializable {
     @Serial
     private static final long serialVersionUID = 1905122041950251207L;
 

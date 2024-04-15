@@ -31,6 +31,9 @@ public class MenuEntity extends Auditable<String> implements Serializable {
     @Column(name = "idview", columnDefinition = "BIGINT")
     private Long idView;
 
+    @Column(name = "parentid",columnDefinition = "BIGINT")
+    private Long parentId;
+
     @Column(name = "status",nullable = false,columnDefinition = "CHAR(1)")
     private String status;
 

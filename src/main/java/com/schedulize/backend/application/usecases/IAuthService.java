@@ -6,7 +6,7 @@ import com.schedulize.backend.application.model.response.AuthResponseDto;
 import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import org.springframework.http.ResponseEntity;
 
-public interface AuthService {
+public interface IAuthService {
     ResponseEntity<ResponseRestPresenter<AuthResponseDto>> login(LoginRequestDto loginRequestDto);
     ResponseEntity<ResponseRestPresenter<String>> register(RegisterRequestDto registerRequestDto);
 }
