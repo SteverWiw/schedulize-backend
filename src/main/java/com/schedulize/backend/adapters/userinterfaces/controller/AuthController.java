@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("${application.request.mappings}/v1/api/auth")
+@RequestMapping("/app-schedule/v1/api${application.request.mappings.auth}")
 public class AuthController {
     private final IAuthService iAuthService;
 

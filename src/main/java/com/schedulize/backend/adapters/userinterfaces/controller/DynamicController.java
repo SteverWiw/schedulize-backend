@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("${application.request.mappings}/v1/api/dynamic")
+@RequestMapping("/v1/api/dynamic")
 @RequiredArgsConstructor
 public class DynamicController {
 
