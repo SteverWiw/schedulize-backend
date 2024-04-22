@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("${application.request.mappings.menu}")
+@RequestMapping("/app-schedule/v1/api${application.request.mappings.menu}")
 public class MenuController {
 
     private final IMenuService iMenuService;

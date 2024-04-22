@@ -30,9 +30,6 @@ public class ViewEntity extends Auditable<String> implements Serializable {
     @Column(name = "route",nullable = false,length = 150)
     private String route;
 
-    @Column(name = "icon",nullable = false,length = 150)
-    private String icon;
-
     @Column(name = "status",nullable = false,columnDefinition = "CHAR(1)")
     private String status;
 }

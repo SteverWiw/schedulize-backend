@@ -60,7 +60,7 @@ public class GeneralUtils {
         return authentication.getPrincipal().toString();
     }
 
-    public static String convertMenuToJson(List<Map<String, Object>> menu) {
+    public static String convertMapToJson(List<Map<String, Object>> menu) {
         try {
             return objectMapper.writeValueAsString(menu);
         } catch (JsonProcessingException e) {
