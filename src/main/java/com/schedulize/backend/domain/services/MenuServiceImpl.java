@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.schedulize.backend.adapters.infrastructure.repository.MenuRepository;
 import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
 import com.schedulize.backend.application.usecases.IMenuService;
+import com.schedulize.backend.domain.entities.MenuEntity;
 import com.schedulize.backend.util.GeneralUtils;
 import com.schedulize.backend.util.ResponseUtil;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -30,6 +32,39 @@ public class MenuServiceImpl implements IMenuService {
                 .map(Long::parseLong)
                 .map(menuRepository::getMenuByRole)
                 .filter(menu -> !menu.isEmpty())
+                .map(responseUtil::createResponse)
+                .orElseGet(responseUtil::handleErrorInternalResponse);
+    }
+
+    @Override
+    public ResponseEntity<ResponseRestPresenter<List<MenuEntity>>> getParents() {
+        List<MenuEntity> menuEntities = menuRepository.getMenuEntityByIsParent("S");
+
+        return Optional.ofNullable(menuEntities)
+                .filter(list -> !list.isEmpty())
+                .map(responseUtil::createResponse)
+                .orElseGet(responseUtil::handleErrorInternalResponse);
+
+    }
+
+    @Override
+    public ResponseEntity<ResponseRestPresenter<List<MenuEntity>>> getChildren(Long parentId) {
+        List<MenuEntity> menuEntities = menuRepository.getMenuEntityByParentId(parentId);
+
+        return Optional.ofNullable(menuEntities)
+                .filter(list -> !list.isEmpty())
+                .map(responseUtil::createResponse)
+                .orElseGet(responseUtil::handleErrorInternalResponse);
+    }
+
+    @Override
+    public ResponseEntity<ResponseRestPresenter<String>> prueba() {
+        String menuEntities = """
+                {/"mensaje/": /"Esto es una prueba /"
+                """;
+
+        return Optional.ofNullable(menuEntities)
+                .filter(list -> !list.isEmpty())
                 .map(responseUtil::createResponse)
                 .orElseGet(responseUtil::handleErrorInternalResponse);
     }

@@ -68,7 +68,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             writer.println(new ObjectMapper().writeValueAsString(responseEntity.getBody()));
             return;
         } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.setStatus(CustomErrorCode.INTERNAL_SERVER_ERROR.getCode());
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            ResponseEntity<ResponseRestPresenter<Void>> responseEntity = responseUtil.handleErrorResponseGeneric(CustomErrorCode.INTERNAL_SERVER_ERROR.getMessage(),
+                    CustomErrorCode.INTERNAL_SERVER_ERROR.getCode(),CustomErrorCode.INTERNAL_SERVER_ERROR.getHttpCode());
+            PrintWriter writer = response.getWriter();
+            writer.println(new ObjectMapper().writeValueAsString(responseEntity.getBody()));
             response.getWriter().write("Error de autenticación: " + e.getMessage());
             return;
         }

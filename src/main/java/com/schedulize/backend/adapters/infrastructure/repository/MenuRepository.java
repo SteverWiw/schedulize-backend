@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface MenuRepository extends JpaRepository<MenuEntity, Long> {
     @Query(value = """
                       select COALESCE(json_agg(json_build_object('menuparent',me.name,
@@ -19,4 +21,7 @@ public interface MenuRepository extends JpaRepository<MenuEntity, Long> {
                        where me.isparent = 'S'
                          and mr.idrole = :idRole""", nativeQuery = true)
    String getMenuByRole(@Param("idRole") Long idRole);
+
+    List<MenuEntity> getMenuEntityByIsParent(@Param("isParent") String isParent);
+    List<MenuEntity> getMenuEntityByParentId(@Param("parentId") Long parentId);
 }
