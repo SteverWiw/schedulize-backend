@@ -1,5 +1,7 @@
 server:
   port: ${PORT:8080}
+  servlet:
+    context-path: /app-schedule/v1/api
 
 
 spring:
@@ -22,7 +24,6 @@ spring:
 application:
   request:
     mappings:
-      base: /app-schedule/v1/api
       auth: /authController
       menu: /menuController
     origin: http://localhost:4200/

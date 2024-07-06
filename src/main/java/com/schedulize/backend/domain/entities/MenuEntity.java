@@ -25,7 +25,7 @@ public class MenuEntity extends Auditable<String> implements Serializable {
     @Column(name = "name",nullable = false,length = 50)
     private String name;
 
-    @Column(name = "isparent",nullable = false,columnDefinition = "CHAR(1)")
+    @Column(name = "isparent",columnDefinition = "CHAR(1)")
     private String isParent;
 
     @Column(name = "idview", columnDefinition = "BIGINT")
@@ -37,7 +37,8 @@ public class MenuEntity extends Auditable<String> implements Serializable {
     @Column(name = "status",nullable = false,columnDefinition = "CHAR(1)")
     private String status;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idview", referencedColumnName = "id", nullable = false,foreignKey = @ForeignKey(name = "fk_menu_view"),updatable = false,insertable = false)
     private ViewEntity viewEntity;
 }

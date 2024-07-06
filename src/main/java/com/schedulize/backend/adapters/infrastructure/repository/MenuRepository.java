@@ -11,8 +11,8 @@ public interface MenuRepository extends JpaRepository<MenuEntity, Long> {
     @Query(value = """
                       select COALESCE(json_agg(json_build_object('menuparent',me.name,
                                                                  'menuchildren',COALESCE((select json_agg(json_build_object('menuName' ,child.name ,
-                                                                                                                              'viewName',vi.name ,
-                                                                                                                              'viewRoute',vi.route))
+                                                                                                                            'viewName',vi.name ,
+                                                                                                                            'viewRoute',vi.route))
                                                                                             from core.menu child
                                                                                             join core.views vi on child.idview = vi.id
                                                                                            where child.parentid =me.id), '[]'))), '[]')
@@ -24,4 +24,5 @@ public interface MenuRepository extends JpaRepository<MenuEntity, Long> {
 
     List<MenuEntity> getMenuEntityByIsParent(@Param("isParent") String isParent);
     List<MenuEntity> getMenuEntityByParentId(@Param("parentId") Long parentId);
+    MenuEntity getMenuEntityByIdViewAndParentId(@Param("idView") Long idView, @Param("parentId") Long parentId);
 }

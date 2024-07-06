@@ -19,7 +19,7 @@ public enum CustomErrorCode {
     NOT_FOUND(44,HttpStatus.NOT_FOUND, "El recurso de destino no existe."),
     METHOD_NOT_ALLOWED(45,HttpStatus.METHOD_NOT_ALLOWED, "El recurso de destino no admite el método HTTP solicitado."),
     NOT_ACCEPTABLE(46,HttpStatus.NOT_ACCEPTABLE, "El recurso de destino no admite el formato de datos solicitado."),
-    CONFLICT(49,HttpStatus.NOT_ACCEPTABLE, "se ha detectado un cambio conflictivo durante un intento de modificación de un recurso."),
+    CONFLICT(49,HttpStatus.CONFLICT, "El registro que intenta crear ya existe"),
     UNSUPPORTED_MEDIA_TYPE(415,HttpStatus.UNSUPPORTED_MEDIA_TYPE, "El recurso de destino no admite el formato de datos."),
     // Errores del servidor (5xx)
     INTERNAL_SERVER_ERROR(50,HttpStatus.INTERNAL_SERVER_ERROR, "Error inesperado: comuniquese con el servicio de soporte tecnico."),

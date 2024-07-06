@@ -1,7 +1,6 @@
 package com.schedulize.backend.adapters.userinterfaces.controller;
 
 import com.schedulize.backend.application.model.request.LoginRequestDto;
-import com.schedulize.backend.application.model.request.RegisterRequestDto;
 import com.schedulize.backend.application.model.response.AuthResponseDto;
 import com.schedulize.backend.application.usecases.IAuthService;
 import com.schedulize.backend.adapters.userinterfaces.presenters.ResponseRestPresenter;
@@ -14,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/app-schedule/v1/api${application.request.mappings.auth}")
+@RequestMapping("${application.request.mappings.auth}")
 public class AuthController {
     private final IAuthService iAuthService;
 

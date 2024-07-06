@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 
 @Slf4j
 @RestController
-@RequestMapping("/v1/api/demo")
+@RequestMapping("/demo")
 @RequiredArgsConstructor
 public class DemoController {
     @GetMapping("/welcome")

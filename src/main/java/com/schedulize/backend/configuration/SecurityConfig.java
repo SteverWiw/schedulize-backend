@@ -30,10 +30,7 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     private CustomAuthenticationEntryPoint authenticationEntryPoint;
 
-    @Value("${application.request.mappings.base}")
-    private String urlBase;
-
-    @Value("${application.request.mappings.auth}")
+   @Value("${application.request.mappings.auth}")
     private String urlAutorization;
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, AuthenticationProvider authenticationProvider, CustomAuthenticationEntryPoint authenticationEntryPoint) {
@@ -51,7 +48,7 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, urlBase + urlAutorization + "/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,urlAutorization + "/**").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(sessionManager ->
                         sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

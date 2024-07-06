@@ -1,14 +1,12 @@
 package com.schedulize.backend.domain.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @AllArgsConstructor
@@ -33,11 +31,11 @@ public class MenuXRole extends Auditable<String> implements Serializable {
     @Column(name = "status",nullable = false,columnDefinition = "CHAR(1)")
     private String status;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idrole", referencedColumnName = "id", nullable = false,foreignKey = @ForeignKey(name = "fk_menu_role"),updatable = false,insertable = false)
     private RoleEntity roleEntity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idmenu", referencedColumnName = "id", nullable = false,foreignKey = @ForeignKey(name = "fk_menu_menu"),updatable = false,insertable = false)
     private MenuEntity menuEntity;
 }
