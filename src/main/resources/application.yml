@@ -18,8 +18,6 @@ spring:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/db_inventory}
     username: ${DB_USERNAME:core}
     password: ${DB_PASSWORD:2qUWihtKZBwh7PFTQoRf}
-  hibernate:
-    ddl-auto: update
 
 application:
   request:
